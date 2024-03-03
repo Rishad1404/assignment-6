@@ -65,6 +65,8 @@ const displayPosts=posts=>{
         `;
         postContainer.appendChild(postCard);
     })
+    // Hide loading spinner
+    controlLoadingSpinner(false);
 }
 // Latest posts
 function loadPosts2(){
@@ -111,11 +113,22 @@ const displayLatestPosts=data=>{
 // Handle search button
 
 const handleSearch=()=>{
+    controlLoadingSpinner(true);
     const searchField=document.getElementById('search-field');
     const searchText=searchField.value;
     console.log(searchText);
     loadPosts(searchText)
     
+}
+
+const controlLoadingSpinner=(isLoading)=>{
+    const loadingSpinner=document.getElementById('loading-spinner');
+    if(isLoading){
+        loadingSpinner.classList.remove('hidden')
+    }
+    else{
+        loadingSpinner.classList.add('hidden')
+    }
 }
 
 loadPosts2()
