@@ -4,8 +4,8 @@
 //     // loadPosts()
     
 // })
-const loadPosts=async ()=>{
-    const res=await fetch('https://openapi.programming-hero.com/api/retro-forum/posts');
+const loadPosts=async (searchText)=>{
+    const res=await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${searchText}`);
     const data=await res.json();
     const posts=data.posts;
     displayPosts(posts);
@@ -114,7 +114,7 @@ const handleSearch=()=>{
     const searchField=document.getElementById('search-field');
     const searchText=searchField.value;
     console.log(searchText);
-    loadPosts()
+    loadPosts(searchText)
     
 }
 
