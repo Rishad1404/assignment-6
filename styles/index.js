@@ -1,10 +1,6 @@
-// const searchBtn=document.getElementById('search-btn')
 
-// searchBtn.addEventListener('click',()=>{
-//     // loadPosts()
-    
-// })
 const loadPosts=async (searchText)=>{
+    
     const res=await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${searchText}`);
     const data=await res.json();
     const posts=data.posts;
@@ -20,18 +16,24 @@ const displayPosts=posts=>{
     postContainer.textContent=''
     posts.forEach(post=>{
         // console.log(post)
-
+        
+        
+        
+        
         // Create the post container div
         const postCard=document.createElement('div')
         postCard.classList='lg:flex gap-5 bg-[#797dfc1a] border-1 border-solid border-[#797DFC] p-8 mb-10 ';
-        // Set inner html
+        // Set inner html   
         postCard.innerHTML=`
                         <div>
-                            <div class="avatar online">
-                                <div class="w-24 rounded-full">
-                                    <img src="${post.image}" />
-                                </div>
+                            <div class="avatar relative">
+                                <div class="w-24 mask mask-squircle">
+                                <img src="${post.image}" />
                             </div>
+                            <div  class="active-status h-4 w-4 rounded-full bg-white absolute ml-[80px]">
+                                
+                            </div>
+                        </div>
                         </div>
                         <div>
                             <div class="flex gap-5">
@@ -64,6 +66,15 @@ const displayPosts=posts=>{
                         </div>
         `;
         postContainer.appendChild(postCard);
+
+        const activeStatusElements = postCard.getElementsByClassName('active-status');
+        const activeStatus = activeStatusElements[0]; 
+        if (post.isActive) {
+            activeStatus.classList.add('bg-green-900');
+        } else {
+            
+            activeStatus.classList.add('bg-red-700');
+        }
     })
     // Hide loading spinner
     controlLoadingSpinner(false);
@@ -131,5 +142,9 @@ const controlLoadingSpinner=(isLoading)=>{
     }
 }
 
+
+
+
 loadPosts2()
-loadPosts()
+loadPosts('')
+
