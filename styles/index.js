@@ -16,12 +16,14 @@ const displayPosts=posts=>{
 
     // Access to post container div
     const postContainer=document.getElementById('post-container');
+
+    postContainer.textContent=''
     posts.forEach(post=>{
         // console.log(post)
 
         // Create the post container div
         const postCard=document.createElement('div')
-        postCard.classList='lg:flex gap-5 bg-[#797dfc1a] border-1 border-solid border-[#797DFC] p-8 mb-10 w-full';
+        postCard.classList='lg:flex gap-5 bg-[#797dfc1a] border-1 border-solid border-[#797DFC] p-8 mb-10 ';
         // Set inner html
         postCard.innerHTML=`
                         <div>
@@ -42,7 +44,7 @@ const displayPosts=posts=>{
                 
                             <hr class="border-t border-dashed border-black my-4">
                 
-                            <div class="flex justify-between mt-5 ">
+                            <div class="flex justify-between items-start mt-5 w-auto">
                                 <div class="flex gap-6 items-center">
                                     <div class="flex gap-4 items-center">
                                         <img src="images/tabler-icon-message-2.svg" alt="">
@@ -64,8 +66,57 @@ const displayPosts=posts=>{
         postContainer.appendChild(postCard);
     })
 }
+// Latest posts
+function loadPosts2(){
+    fetch('https://openapi.programming-hero.com/api/retro-forum/latest-posts')
+    .then(res=>res.json())
+    .then(data=>{
+
+        const latestPostContainer=document.getElementById('latest-container')
+        data.forEach(item=>{
+            const latestPostCard=document.createElement('div');
+            latestPostCard.classList='';
+            latestPostCard.innerHTML=`
+            <div class="card w-96 bg-base-100 shadow-xl my-10">
+                        <figure class="px-10 pt-10">
+                          <img src="${item.cover_image}" alt="" class="rounded-xl" />
+                        </figure>
+                        
+                        <div class="card-body text-left">
+                            <div class="flex items-center gap-4">
+                                <img src="images/Frame (1).svg" alt="">
+                                <p class="">${item.author.posted_date}</p>
+                            </div>
+                          <h2 class="card-title font-bold my-4">${item.title}</h2>
+                          <p>${item.description} </p>
+                          <div class="card-actions my-5 ">
+                            <img src="${item.profile_image}" class="w-12 rounded-full " alt="">
+                            <div class=>
+                                <h2 class="font-bold">${item.author.name}</h2>
+                                <p>${item.author.designation}</p>
+                            </div>
+                          </div>
+                        </div>
+                </div>
+            `;
+            latestPostContainer.appendChild(latestPostCard)
+        })
+    })
+}
+    
+
+const displayLatestPosts=data=>{
+    console.log(data)
+}
 // Handle search button
 
+const handleSearch=()=>{
+    const searchField=document.getElementById('search-field');
+    const searchText=searchField.value;
+    console.log(searchText);
+    loadPosts()
+    
+}
 
-
+loadPosts2()
 loadPosts()
