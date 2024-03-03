@@ -76,8 +76,8 @@
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                 </svg>
                             </div>
-                            <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-black  border-gray-300 rounded-full bg-white " placeholder="Search here anything" required />
-                            <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-[#797DFC]  font-medium rounded-full text-sm px-4 py-2 ">Search</button>
+                            <input id="search-field" type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-black  border-gray-300 rounded-full bg-white " placeholder="Search here anything" required />
+                            <button onclick="handleSearch()" type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-[#797DFC]  font-medium rounded-full text-sm px-4 py-2 ">Search</button>
                         </div>
                     </form>                  
                   </div>
@@ -113,8 +113,8 @@
 
             <div class=" grid lg:grid-cols-3 gap-20">
             
-                <div class="bg-[#797dfc1a] border-1 border-solid border-[#797DFC] grid lg:col-span-2 my-10 p-8 rounded-xl">
-                    <div class="lg:flex gap-4">
+                <div id="post-container" class=" grid lg:col-span-2  my-10  rounded-xl">
+                    <!-- <div class="lg:flex gap-4">
                         <div>
                             <div class="avatar online">
                                 <div class="w-24 rounded-full">
@@ -151,7 +151,7 @@
                                 <button><img src="images/email 1.svg" alt=""></button>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 
                 
@@ -298,5 +298,7 @@
       <p>2017, All Rights Reserved.</p>
     </aside>
   </footer>
+
+  <script src="styles/index.js"></script>
 </body>
 </html>
