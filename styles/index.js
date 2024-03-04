@@ -1,4 +1,3 @@
-
 const loadPosts = async (searchText) => {
 
     const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${searchText}`);
@@ -60,7 +59,7 @@ const displayPosts = posts => {
                                         <p>${post.posted_time} min</p>
                                     </div>
                                 </div>
-                                <button onclick="handleShowDetail('${post.id}');"><img src="images/email 1.svg" alt=""></button>
+                                <button onclick="handleShowDetail('${post.title}', ${post.view_count});"><img src="images/email 1.svg" alt=""></button>
                             </div>
                         </div>
         `;
@@ -97,7 +96,7 @@ function loadPosts2() {
                         <div class="card-body text-left">
                             <div class="flex items-center gap-4">
                                 <img src="images/Frame (1).svg" alt="">
-                                <p class="">${item.author?.posted_date??"No Publish Date"}</p>
+                                <p class="">${item.author?.posted_date ?? "No Publish Date"}</p>
                             </div>
                           <h2 class="card-title font-bold my-4">${item.title}</h2>
                           <p>${item.description} </p>
@@ -105,7 +104,7 @@ function loadPosts2() {
                             <img src="${item.profile_image}" class="w-12 rounded-full " alt="">
                             <div class=>
                                 <h2 class="font-bold">${item.author.name}</h2>
-                                <p>${item.author?.designation??"Unknown"}</p>
+                                <p>${item.author?.designation ?? "Unknown"}</p>
                             </div>
                           </div>
                         </div>
@@ -120,33 +119,24 @@ const displayLatestPosts = data => {
     console.log(data)
 }
 // Handling texts from posts
-let count=0
-const handleShowDetail = async (id) => {
-    
-    
-    
-    const res=await fetch (`https://openapi.programming-hero.com/api/retro-forum/posts?category??${id}`);
-    const data=await res.json();
-    const posts=data.posts;
-    
+let count = 0
+function handleShowDetail(title, viewCount) {
     count++;
-    document.getElementById('count-value').innerText=count;
+    document.getElementById('count-value').innerText = count;
 
-    for(const post of posts){
-        // console.log(post)
 
-        const detailsContainer = document.getElementById('details-container1');
-        const newContainer = document.createElement('div');
-         newContainer.classList = 'bg-slate-100 rounded-lg p-4 flex justify-between gap my-3';
-        newContainer.innerHTML = `
-                        <p>${post.title}</p>
-                            <div class="flex gap-2 items-center justify-evenly">
+    const detailsContainer = document.getElementById('details-container1');
+    const newContainer = document.createElement('div');
+    newContainer.classList = 'bg-slate-100 rounded-lg p-4 flex justify-between gap my-3';
+    newContainer.innerHTML = `
+                        <p>${title}</p>
+                        <div class="flex gap-2 items-center justify-evenly">
                                 <img src="images/tabler-icon-eye.svg" alt="">
-                                <p>${post.view_count}</p>
-                            </div>
+                                <p id="view-count">${viewCount}</p>
+                        </div>
+                        
     `;
-        detailsContainer.appendChild(newContainer)   
-    }    
+    detailsContainer.appendChild(newContainer)
 }
 
 
@@ -172,10 +162,5 @@ const controlLoadingSpinner = (isLoading) => {
         }, 2000);
     }
 }
-
-
-
-
 loadPosts2()
 loadPosts('')
-
